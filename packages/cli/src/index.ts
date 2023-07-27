@@ -30,6 +30,7 @@ class FileProcessor {
     this.pool = new WorkerPool({
       filename: new URL('./worker.js', import.meta.url).href,
       workerData: config,
+      maxThreads: config.maxThreads,
     });
     console.log(`Using a pool of ${this.pool.threads.length} threads.`);
   }

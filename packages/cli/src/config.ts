@@ -65,6 +65,7 @@ const configParser = t.type({
     ),
     t.undefined,
   ]),
+  maxThreads: t.union([t.number, t.undefined]),
 });
 
 export type IConfig = typeof configParser._O;
@@ -83,6 +84,7 @@ export interface ParsedConfig {
   hungarianNotation: boolean;
   transforms: IConfig['transforms'];
   srcDir: IConfig['srcDir'];
+  maxThreads?: number;
   typesOverrides: Record<string, Partial<TypeDefinition>>;
 }
 
@@ -180,6 +182,7 @@ export function parseConfig(
     camelCaseColumnNames,
     hungarianNotation,
     typesOverrides,
+    maxThreads,
   } = configObject as IConfig;
 
   // CLI connectionUri flag takes precedence over the env and config one
@@ -224,5 +227,6 @@ export function parseConfig(
     camelCaseColumnNames: camelCaseColumnNames ?? false,
     hungarianNotation: hungarianNotation ?? true,
     typesOverrides: parsedTypesOverrides,
+    maxThreads: maxThreads ?? undefined,
   };
 }
